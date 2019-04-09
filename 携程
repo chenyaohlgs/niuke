@@ -1,0 +1,31 @@
+#coding:__utf-8__
+def min_shulie(lists):
+    """
+    描述：给定了一个序列，找出其中两组排列最小的连续序列之和相加
+    :param lists:
+    :return:
+    """
+    Min, cur =0xffff, 0
+    for i in lists:
+        if cur >= 0:
+            cur = i
+        else:
+            cur += i
+
+        if cur < Min:
+            Min = cur
+    return Min
+def liangxulie(lists):
+    res = []
+    buf = []
+    for i in range(1,len(lists)-1):
+        if lists[i] > 0:
+            buf.append(min_shulie(lists[:i]))
+            buf.append(min_shulie(lists[i+1:]))
+            res.append(buf[0]+buf[1])
+            buf = []
+    res.sort()
+    print(res[0])
+if __name__ == "__main__":
+    lists = [2,-2,1,-3,3,-9,1-2,5,-5,-6,-8]
+    liangxulie(lists)
